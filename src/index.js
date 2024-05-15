@@ -26,16 +26,12 @@ class Team {
           }
           return this.members;
     }
-    toArray() {
-        let arrayHeros = [];
-        this.members.forEach(member => arrayHeros.push(member));
-        return arrayHeros;
-    }
-    [Symbol.iterator](arrayHeros) {
-        let index = -1;
+    [Symbol.iterator]() {
+        let index = -1
+        const team = [...this.members]
         return {
             next () {
-                if (index > arrayHeros.length - 2) {
+                if (index > team.length - 2) {
                     return {
                         value: undefined,
                         done: true
@@ -43,7 +39,7 @@ class Team {
                 }
                 index ++;
                 return {
-                    value: arrayHeros[index],
+                    value: team[index],
                     done: false
                 }
             }
@@ -58,9 +54,8 @@ const keit = new Character('Keit', 'Bowman', 40, 2, 25, 25);
 
 const team = new Team();
 team.addAll(ser, anna, boris, keit);
-const arrayHeros = team.toArray();
 
-const data = team[Symbol.iterator](arrayHeros);
+const data = team[Symbol.iterator]();
 console.log(data.next());
 console.log(data.next());
 console.log(data.next());
